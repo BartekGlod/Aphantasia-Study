@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aphantasia | Afantazja</title>
+    <meta name="description" content="Aphantasia Research Study | Badanie Psychologiczne o Afantazji | Take part! | Weź udział!">
+    <meta property="og:title" content="Aphantasia | Afantazja">
+    <meta property="og:description" content="Aphantasia Research Study | Badanie Psychologiczne o Afantazji | Take part! | Weź udział!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Aphantasia | Afantazja">
+    <meta name="twitter:description" content="Aphantasia Research Study | Badanie Psychologiczne o Afantazji | Take part! | Weź udział!">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #content {
+            display: none;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+<meta name="google-site-verification" content="o07RL7pHAfyW4Lbh8fG-T4j0y-0lPgto_WaKrOibKnk" />
+</head>
+<body>
+
+    <h2>Choose your language:</h2>
+    <h3>Wybierz język:</h3>
+    <button onclick="showContent('english')">English</button>
+    <button onclick="showContent('polski')">Polski</button>
+
+    <div id="content">
+        <p id="text"></p>
+    </div>
+
+    <script>
+        function showContent(language) {
+            var text = "";
+            if (language === "english") {
+                text = `🧠 <b>Participate in a Psychology Study on Mental Imagery & Memory!</b><br><br>
+                I am a fifth-year psychology student at SWPS University in Warsaw, Poland. For my master’s thesis, I am conducting a study under the supervision of Dr. Aneta Brzezicka.<br><br>
+                This study explores the relationship between mental imagery (including aphantasia) and visual memory. It consists of three parts:<br>
+                1️⃣ Demographic questions<br>
+                2️⃣ A questionnaire on visual imagination (VVIQ-2)<br>
+                3️⃣ A behavioral task involving image/word memorization, spatial rotations, and recognition<br><br>
+                🕒 <b>Duration:</b> ~25 minutes<br>
+                🔒 <b>Completely anonymous</b> (unless you voluntarily provide an email for follow-up)<br>
+                Your participation would greatly help psychological research, and I’d truly appreciate your time!<br><br>
+                ➡️ <a href="https://psychodpt.fra1.qualtrics.com/jfe/form/SV_e9yvhvbUx5FuP9Y?link=1" target="_blank">Click here to participate</a><br><br>
+                If you have any questions, feel free to contact me at <b>bglod@st.swps.edu.pl</b>.<br><br>
+                Thank you for your support! 🙌`;
+            } else if (language === "polski") {
+                text = `🧠 <b>Weź udział w badaniu psychologicznym dotyczącym wyobraźni i pamięci!</b><br><br>
+                Jestem studentem piątego roku psychologii na Uniwersytecie SWPS w Warszawie. W ramach pracy magisterskiej prowadzę badanie pod kierunkiem dr Anety Brzezickiej.<br><br>
+                Badanie dotyczy związku między wyobrażeniami umysłowymi (w tym afantazją) a pamięcią wzrokową. Składa się ono z trzech części:<br>
+                1️⃣ Pytania demograficzne<br>
+                2️⃣ Kwestionariusz wyobraźni wzrokowej (VVIQ-PL)<br>
+                3️⃣ Zadanie behawioralne obejmujące zapamiętywanie obrazów/słów, rotacje przestrzenne i rozpoznawanie.<br><br>
+                🕒 <b>Czas trwania:</b> ~25 minut<br>
+                🔒 <b>Całkowicie anonimowy</b> (chyba że dobrowolnie podasz adres e-mail do dalszych działań)<br>
+                Twój udział bardzo pomógłby w badaniach psychologicznych i byłbym naprawdę wdzięczny za poświęcony czas!<br><br>
+                ➡️ <a href="https://psychodpt.fra1.qualtrics.com/jfe/form/SV_1XM7R76acOmUho2?link=1" target="_blank">Kliknij tutaj, aby wziąć udział</a><br><br>
+                Jeśli masz jakieś pytania, skontaktuj się ze mną pod adresem <b>bglod@st.swps.edu.pl</b>.<br><br>
+                Dziękuję za wsparcie! 🙌`;
+            }
+
+            document.getElementById("text").innerHTML = text;
+            document.getElementById("content").style.display = "block";
+        }
+    </script>
+
+<script>
+    fetch('counter.php')
+        .then(response => response.text())
+        .then(count => {
+            document.getElementById("counter").innerText = "Global visits: " + count;
+        });
+</script>
+
+</body>
+</html>

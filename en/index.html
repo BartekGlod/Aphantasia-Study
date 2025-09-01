@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Badanie Behawioralne</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="./lib/psychojs-2024.2.2.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Nakładka z instrukcją */
+        #instructions-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            overflow: auto; /* Dodajemy przewijanie */
+        }
+
+        #instructions {
+            max-width: 90%;
+            max-height: 90%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: auto; /* Dodajemy przewijanie wewnętrzne */
+        }
+
+            #instructions h1 {
+                text-align: center;
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            #instructions p, #instructions ul {
+                margin-bottom: 10px;
+                line-height: 1.6;
+            }
+
+        /* General button styles */
+    #start-button, #show-instructions-button {
+        display: block;
+        padding: 10px 20px;
+        font-size: 18px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    /* Hover effect */
+    #start-button:hover, #show-instructions-button:hover {
+        background-color: #0056b3;
+    }
+
+    /* #start-button remains centered in the overlay */
+    #start-button {
+        margin: 20px auto 0;
+    }
+
+    /* #show-instructions-button fixed at the bottom of the page */
+    #show-instructions-button {
+        position: fixed;
+        bottom: 10px; /* Adjust for spacing from the bottom */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1001; /* Above other content but below overlay */
+    }
+
+        /* Poprawki dla urządzeń mobilnych */
+        @media (max-width: 600px) {
+            #instructions {
+                font-size: 14px; /* Zmniejszenie czcionki */
+                padding: 15px;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <!-- Instruction as an overlay -->
+    <div id="instructions-overlay">
+        <div id="instructions">
+            <h1>Study Instructions</h1>
+            <p>
+                Thank you for participating in the study so far! Please carefully read the following instructions before proceeding with the next part. The task you are about to complete consists of several parts.
+            </p>
+            <p>
+                <strong>Part 1: Stimulus Presentation</strong><br>
+                A variable number of stimuli - images or words - will be displayed on the screen. You will have 5 seconds to observe them. Try to remember them, as they will be needed in the following parts of the task.
+            </p>
+            <p>
+                <strong>Part 2: Figure Comparison</strong><br>
+                After the stimulus presentation, <strong>two figures</strong> will appear on the screen. Your task is to determine whether these figures are identical or different. The figures may be rotated in space. You will have <strong>10 seconds</strong> for this task.
+            </p>
+            <ul>
+                <li>If you are using a phone or tablet, use the on-screen buttons.</li>
+                <li>
+                    If you are using a computer with a keyboard:
+                    <ul>
+                        <li>Select a "same" response: <strong>"c"</strong>.</li>
+                        <li>Select a "different" response: <strong>"n"</strong>.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>
+                <strong>Part 3: Stimulus Recognition</strong><br>
+                After completing the figure task, <strong>one stimulus</strong> will appear on the screen. Your task is to determine whether this stimulus was presented in Part 1 or not. You will have <strong>5 seconds</strong> for this task.
+            </p>
+            <ul>
+                <li>If you are using a phone or tablet, use the on-screen buttons.</li>
+                <li>
+                    If you are using a computer with a keyboard:
+                    <ul>
+                        <li>Select a "old" response: <strong>"c"</strong>.</li>
+                        <li>Select a "new" response: <strong>"n"</strong>.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>
+                <strong>General Rules</strong><br>
+                - Try to complete the tasks <strong>as quickly</strong> as possible while maintaining <strong>the highest accuracy</strong>.
+            </p>
+            <p>
+                <strong>Practice Trial</strong><br>
+                Before starting the main study, you will complete <strong>two practice trials</strong>. During these trials, you will receive feedback after each response indicating whether your answer was correct. In the actual study trials, no feedback on response accuracy will be provided.
+            </p>
+            <button id="start-button" onclick="startExperiment()">Next</button>
+        </div>
+    </div>
+
+    <!-- Original PsychoJS container -->
+    <div id="root"></div>
+
+    <!-- Navigation buttons -->
+    <button id="show-instructions-button" onclick="showInstructions()" style="display: none;">Show Instructions Again</button>
+
+    <!-- External libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preloadjs@1.0.1/lib/preloadjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- Experiment -->
+    <script src="./badanie_builder.js" type="module"></script>
+    <!-- Legacy browsers -->
+    <script src="./lib/psychojs-2024.2.2.iife.js" nomodule></script>
+    <script src="./badanie_builder-legacy-browsers.js" nomodule></script>
+
+    <script>
+        // Funkcja do ukrycia nakładki z instrukcją
+        function startExperiment() {
+            document.getElementById('instructions-overlay').style.display = 'none';
+            document.getElementById('root').style.display = 'block';
+            document.getElementById('show-instructions-button').style.display = 'block'; // Pokaż przycisk "Pokaż instrukcję ponownie"
+        }
+
+        // Funkcja do ponownego wyświetlenia instrukcji
+        function showInstructions() {
+            document.getElementById('instructions-overlay').style.display = 'flex';
+            document.getElementById('show-instructions-button').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
